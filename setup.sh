@@ -55,6 +55,8 @@ sudo /usr/bin/mysql_secure_installation
 # Install npm
 sudo apt-get install npm
 
+sudo apt-get install node
+
 # git pull and install dotfiles as well
 cd $HOME
 if [ -d ./dotfiles/ ]; then
@@ -69,3 +71,7 @@ ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sf dotfiles/.emacs.d .
+
+
+#install ohmyzsh
+curl -L http://install.ohmyz.sh | sh
