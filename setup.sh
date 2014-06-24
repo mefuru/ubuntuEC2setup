@@ -74,4 +74,23 @@ ln -sf dotfiles/.emacs.d .
 
 
 #install ohmyzsh
-curl -L http://install.ohmyz.sh | sh
+apt-get install zsh
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+chsh -s 'which zsh'
+
+# https://github.com/robbyrussell/oh-my-zsh/issues/1224
+
+# git pull and install dotfiles as well
+cd $HOME
+if [ -d ./dotfiles/ ]; then
+    mv dotfiles dotfiles.old
+fi
+if [ -d .emacs.d/ ]; then
+    mv .emacs.d .emacs.d~
+fi
+git clone https://github.com/startup-class/dotfiles.git
+ln -sb dotfiles/.screenrc .
+ln -sb dotfiles/.bash_profile .
+ln -sb dotfiles/.bashrc .
+ln -sb dotfiles/.bashrc_custom .
+ln -sf dotfiles/.emacs.d .
