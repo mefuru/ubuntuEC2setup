@@ -27,10 +27,6 @@ sudo add-apt-repository -y ppa:cassou/emacs
 sudo apt-get -qq update
 sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 
-# Install Prelude for emacs24
-# http://batsov.com/prelude/      
-curl -L http://git.io/epre | sh
-
 # Install Heroku toolbelt
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
@@ -46,16 +42,13 @@ echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | 
 sudo apt-get -y update
 sudo apt-get -y install mongodb-10gen
 
-# Install MySQL
-# https://www.digitalocean.com/community/articles/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu
-sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
-sudo mysql_install_db
-sudo /usr/bin/mysql_secure_installation
-
 # Install npm
 sudo apt-get install npm
-
 sudo apt-get install node
+
+# Install Prelude for emacs24
+# http://batsov.com/prelude/      
+wget --no-check-certificate https://github.com/bbatsov/prelude/raw/master/utils/installer.sh -O - | sh
 
 # git pull and install dotfiles as well
 cd $HOME
@@ -67,30 +60,10 @@ if [ -d .emacs.d/ ]; then
 fi
 git clone https://github.com/startup-class/dotfiles.git
 ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
 ln -sf dotfiles/.emacs.d .
-
 
 #install ohmyzsh
 apt-get install zsh
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 chsh -s 'which zsh'
-
 # https://github.com/robbyrussell/oh-my-zsh/issues/1224
-
-# git pull and install dotfiles as well
-cd $HOME
-if [ -d ./dotfiles/ ]; then
-    mv dotfiles dotfiles.old
-fi
-if [ -d .emacs.d/ ]; then
-    mv .emacs.d .emacs.d~
-fi
-git clone https://github.com/startup-class/dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
-ln -sf dotfiles/.emacs.d .
