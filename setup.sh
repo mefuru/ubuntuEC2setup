@@ -1,12 +1,14 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 12.04 LTS EC2 instance
+# Simple setup.sh for configuring Ubuntu Server 14.04 LTS (HVM), SSD Volume Type
 # for headless setup. 
+
+# Install git
+# sudo apt-get install -y git
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
-sudo apt-get install -y git
 sudo apt-get install -y curl
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+curl https://raw.githubusercontent.com/creationix/nvm/v0.15.0/install.sh | bash
 
 # Load nvm and install latest production node
 source $HOME/.nvm/nvm.sh
@@ -31,16 +33,6 @@ sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
-# Install MongoDB
-# The `apt-key` call registers the public key of the custom 10gen MongoDB aptitude repository
-# A custom 10gen repository list file is created containing the location of the MongoDB binaries
-# install MongoDB
-# https://www.digitalocean.com/community/articles/how-to-install-mongodb-on-ubuntu-12-04
-# http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
-echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" | sudo tee -a /etc/apt/sources.list.d/10gen.list
-sudo apt-get -y update
-sudo apt-get -y install mongodb-10gen
 
 # Install npm
 sudo apt-get install npm
@@ -60,10 +52,18 @@ if [ -d .emacs.d/ ]; then
 fi
 git clone https://github.com/startup-class/dotfiles.git
 ln -sb dotfiles/.screenrc .
+ln -sb dotfiles/.bash_profile .
+ln -sb dotfiles/.bashrc .
+ln -sb dotfiles/.bashrc_custom .
 ln -sf dotfiles/.emacs.d .
 
-#install ohmyzsh
-apt-get install zsh
+# install ohmyzsh
+sudo apt-get install zsh
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 chsh -s 'which zsh'
+sudo shutdown -r 0
 # https://github.com/robbyrussell/oh-my-zsh/issues/1224
+# https://gist.github.com/tsabat/1498393
+
+
+sudo bash ./mongo_install.bash
