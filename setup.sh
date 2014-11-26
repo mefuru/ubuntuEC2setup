@@ -33,7 +33,6 @@ sudo apt-get install -y emacs24-nox emacs24-el emacs24-common-non-dfsg
 # https://toolbelt.heroku.com/debian
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
-
 # Install npm
 sudo apt-get install npm
 sudo apt-get install node
@@ -45,6 +44,4 @@ chsh -s 'which zsh'
 # https://github.com/robbyrussell/oh-my-zsh/issues/1224
 # https://gist.github.com/tsabat/1498393
 
-sudo bash ./mongo_install.bash
-
-sudo shutdown -r 0
+# sudo bash ./mongo_install.bash
